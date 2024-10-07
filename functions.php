@@ -89,3 +89,17 @@ function add_button_to_nav_menu($items, $args)
 	return $items;
 }
 add_filter('wp_nav_menu_items', 'add_button_to_nav_menu', 10, 2);
+
+add_shortcode('modal-select-location', 'modalSelectLocation');
+
+function modalSelectLocation()
+{
+	require 'shortcodes/modal-select-location.php';
+}
+
+add_shortcode('modal-contacts', 'modalContacts');
+
+function modalContacts()
+{
+	require 'shortcodes/modal-contacts.php';
+}

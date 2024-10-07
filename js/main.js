@@ -130,7 +130,6 @@
   }
 
   function closeModal(event) {
-    event.preventDefault();
     const target = event.target;
 
     if (

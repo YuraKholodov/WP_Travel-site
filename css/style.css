@@ -296,6 +296,10 @@ select {
 
 /* Модалки------------------------- */
 
+.wpcf7-response-output {
+  display: none;
+}
+
 .modal,
 .modal-contacts {
   display: flex;
@@ -374,9 +378,13 @@ select {
   display: block;
 }
 
-.field span {
+.field br {
+  display: none;
+}
+
+.field .contact__input-hint {
   position: absolute;
-  top: 12px;
+  top: 20%;
   left: 28px;
   font-size: 11px;
   color: var(--general-light-text);
@@ -384,6 +392,12 @@ select {
   opacity: 0;
   visibility: hidden;
   transition: var(--transition);
+}
+
+.field:has(.field__input:focus) .contact__input-hint {
+  visibility: visible;
+  opacity: 1;
+  color: var(--general-light-text);
 }
 
 .field__input {
@@ -411,12 +425,6 @@ select {
 
 .field__input:focus {
   padding: 26px 42px 12px 28px;
-  color: var(--general-light-text);
-}
-
-.field__input:focus + span {
-  visibility: visible;
-  opacity: 1;
   color: var(--general-light-text);
 }
 
@@ -451,9 +459,8 @@ select {
 
 /* Чекбокс----------------------- */
 
-.contact__check-label {
+.contact__checkbox-wrapper > p {
   display: flex;
-  align-items: start;
   gap: 5px;
   max-width: 288px;
   font-size: 13px;
@@ -461,32 +468,40 @@ select {
   cursor: pointer;
 }
 
-.contact__check-label a {
+.contact__checkbox-wrapper br {
+  display: none;
+}
+
+.contact__checkbox-wrapper a {
   text-decoration: underline;
   transition: var(--transition);
 }
 
-.contact__check-label a:hover {
+.contact__checkbox-wrapper a:hover {
   color: var(--link-hover-color);
 }
 
+.contact__checkbox-label {
+  flex-shrink: 0;
+}
+
 .contact__checkbox {
-  position: absolute;
-  width: 1px;
-  height: 1px;
+  width: 0px;
+  height: 0px;
   overflow: hidden;
-  clip: rect(0 0 0 0);
+  visibility: hidden;
 }
 
 .checkbox-style {
+  display: inline-block;
   position: relative;
   width: 16px;
   height: 16px;
   border: 2px solid var(--general-dark-bg);
-  flex-shrink: 0;
 }
 
-.contact__checkbox:checked + .checkbox-style::before {
+.contact__checkbox-label:has(.contact__checkbox:checked)
+  .checkbox-style::before {
   position: absolute;
   content: "";
   width: 10px;

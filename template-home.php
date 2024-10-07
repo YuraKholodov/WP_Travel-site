@@ -20,14 +20,14 @@ get_header();
           <label class="hero__form-label">
             <select name="location" class="form__input hero__form-input">
               <option value="none">
-                <?php the_field('form-location__btn') ?>
+                <?php the_field('form-location__btn', 'option') ?>
               </option>
 
               <?php
-              if (have_rows('form-location__repeater')):
-                while (have_rows('form-location__repeater')) : the_row(); ?>
+              if (have_rows('form-location__repeater', 'option')):
+                while (have_rows('form-location__repeater', 'option')) : the_row(); ?>
 
-                  <option value="<?php the_sub_field('location') ?>"><?php the_sub_field('location') ?></option>
+                  <option value="<?php the_sub_field('location', 'option') ?>"><?php the_sub_field('location', 'option') ?></option>
 
               <?php
                 endwhile;
@@ -38,7 +38,7 @@ get_header();
               ?>
 
             </select>
-            <span><?php the_field('form-location__btn-hint') ?></span>
+            <span><?php the_field('form-location__btn-hint', 'option') ?></span>
           </label>
           <img
             src="./img/icons/arrow.svg"
@@ -49,28 +49,28 @@ get_header();
         <div class="select__wrapper">
           <!-- Кнопка выбора дат-------- -->
           <div class="select__date-btn">
-            <p><?php the_field('form-location__date-btn') ?></p>
+            <p><?php the_field('form-location__date-btn', 'option') ?></p>
             <img
               src="./img/icons/date.svg"
               alt=""
               class="select__wrapper-img" />
           </div>
 
-          <span><?php the_field('form-location__date-hint') ?></span>
+          <span><?php the_field('form-location__date-hint', 'option') ?></span>
 
           <!-- Выбор начала похода -->
           <div class="select__date-input">
             <div class="input__date-wrapper">
               <label class="hero__form-label">
 
-                <p><?php the_field('form-location__start-date') ?></p>
+                <p><?php the_field('form-location__start-date', 'option') ?></p>
 
                 <input type="date" class="form__input-date" />
               </label>
               <!-- Выбор окончания похода -->
               <label class="hero__form-label">
 
-                <p><?php the_field('form-location__finish-date') ?></p>
+                <p><?php the_field('form-location__finish-date', 'option') ?></p>
 
                 <input type="date" class="form__input-date" />
               </label>
@@ -80,12 +80,12 @@ get_header();
         <div class="select__date-input--mobile">
           <div class="input__date-wrapper">
             <label class="hero__form-label">
-              <p><?php the_field('form-location__start-date') ?></p>
+              <p><?php the_field('form-location__start-date', 'option') ?></p>
               <input type="date" class="form__input-date" />
             </label>
             <!-- Выбор окончания похода -->
             <label class="hero__form-label">
-              <p><?php the_field('form-location__finish-date') ?></p>
+              <p><?php the_field('form-location__finish-date', 'option') ?></p>
               <input type="date" class="form__input-date" />
             </label>
           </div>
@@ -97,14 +97,14 @@ get_header();
               name="participants_count"
               class="form__input hero__form-input">
 
-              <option value="none"><?php the_field('form-location__btn-participants') ?></option>
+              <option value="none"><?php the_field('form-location__btn-participants', 'option') ?></option>
 
               <?php
-              if (have_rows('form-location__groups-repeater')):
-                while (have_rows('form-location__groups-repeater')) : the_row(); ?>
+              if (have_rows('form-location__groups-repeater', 'option')):
+                while (have_rows('form-location__groups-repeater', 'option')) : the_row(); ?>
 
 
-                  <option value="<?php echo get_sub_field('groups-repeater__count')['value'] ?>"><?php echo get_sub_field('groups-repeater__count')['label'] ?></option>
+                  <option value="<?php echo get_sub_field('groups-repeater__count', 'option')['value'] ?>"><?php echo get_sub_field('groups-repeater__count', 'option')['label'] ?></option>
 
               <?php
                 endwhile;
@@ -115,7 +115,7 @@ get_header();
               ?>
 
             </select>
-            <span><?php the_field('form-location__btn-participants-hint') ?></span>
+            <span><?php the_field('form-location__btn-participants-hint', 'option') ?></span>
           </label>
           <img
             src="./img/icons/arrow.svg"
@@ -123,29 +123,29 @@ get_header();
             class="select__wrapper-img" />
         </div>
         <button class="btn header__form-btn" type="submit">
-          <?php the_field('form-location__btn-find-program') ?>
+          <?php the_field('form-location__btn-find-program', 'option') ?>
         </button>
       </form>
       <button class="btn header__form-btn header__form-btn-mobile">
-        <?php the_field('form-location__btn-find-program') ?>
+        <?php the_field('form-location__btn-find-program', 'option') ?>
       </button>
     </div>
   </section>
 
   <!-- Секция Explore=========================================== -->
-  
+
   <section class="explore">
     <div class="container explore__inner">
       <div class="explore__video">
         <div class="explore__video-img explore__video-img--back">
-          <img src="./img/content/exp-2.jpeg" alt="" />
+          <img src="<?php echo get_field('explore__second-img')['url'] ?>" alt="<?php echo get_field('explore__second-img')['alt'] ?>" />
         </div>
         <div class="explore__video-img explore__video-img--front">
-          <img src="./img/content/exp-1.jpg" alt="" />
+          <img src="<?php echo get_field('explore__first-img')['url'] ?>" alt="<?php echo get_field('explore__first-img')['alt'] ?>" />
           <div class="video__control">
             <a
               data-fslightbox
-              href="./video/oshten.mp4"
+              href="<?php the_field('explore__video') ?>"
               class="explore__video-btn">
               <svg
                 width="13.734300"
@@ -168,21 +168,20 @@ get_header();
         </div>
       </div>
       <div class="explore__desc desc">
-        <span>о нашем походе</span>
+        <span><?php the_field('explore__subtitle') ?></span>
         <h2 class="title">
-          Исследуйте все горные массивы мира вместе с нами
+          <?php the_field('explore__title') ?>
         </h2>
         <p class="desc__text">
-          Его корни уходят в один фрагмент классической латыни 45 года
-          н.э., то есть более двух тысячелетий назад. Ричард МакКлинток,
-          профессор латыни из колледжа Hampden-Sydney, штат Вирджиния,
-          взял одно из самых странных слов в Lorem Ipsum, "consectetur"и
-          занялся его поисками в классической латинской литературе.
+          <?php the_field('explore__descr') ?>
         </p>
-        <button class="btn desc__btn">Программа тура</button>
+        <button class="btn desc__btn"><?php the_field('explore__btn') ?></button>
       </div>
     </div>
   </section>
+
+  <!-- Секция Suggestion ==========================================-->
+
   <section class="suggestion">
     <div class="container suggestion__inner">
       <div class="suggestion__desc desc">
@@ -246,6 +245,7 @@ get_header();
       </div>
     </div>
   </section>
+  
   <section class="popular-dest">
     <div class="container popular-dest__inner">
       <div class="popular-dest__desc desc">
@@ -716,6 +716,11 @@ get_header();
     </div>
   </section>
 </main>
+
+
+<?php do_shortcode('[modal-select-location]') ?>
+<?php do_shortcode('[modal-contacts]') ?>
+
 
 <?php
 get_footer();
