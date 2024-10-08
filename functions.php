@@ -103,3 +103,10 @@ function modalContacts()
 {
 	require 'shortcodes/modal-contacts.php';
 }
+
+add_shortcode('form-select-location', 'formSelectLocation');
+
+function formSelectLocation()
+{
+	require 'shortcodes/form-select-location.php';
+}

@@ -14,134 +14,22 @@ get_header();
         <?php the_field('hero__title') ?>
       </h1>
       <!-- Форма бронирования похода------------- -->
-      <form class="form hero__form">
-        <!-- Поле выбора направления похода------------- -->
-        <div class="select__wrapper">
-          <label class="hero__form-label">
-            <select name="location" class="form__input hero__form-input">
-              <option value="none">
-                <?php the_field('form-location__btn', 'option') ?>
-              </option>
-
-              <?php
-              if (have_rows('form-location__repeater', 'option')):
-                while (have_rows('form-location__repeater', 'option')) : the_row(); ?>
-
-                  <option value="<?php the_sub_field('location', 'option') ?>"><?php the_sub_field('location', 'option') ?></option>
-
-              <?php
-                endwhile;
-
-              else :
-                echo 'Поля не заданы!';
-              endif;
-              ?>
-
-            </select>
-            <span><?php the_field('form-location__btn-hint', 'option') ?></span>
-          </label>
-          <img
-            src="./img/icons/arrow.svg"
-            alt=""
-            class="select__wrapper-img" />
-        </div>
-        <!-- Выбор даты похода--------------------------- -->
-        <div class="select__wrapper">
-          <!-- Кнопка выбора дат-------- -->
-          <div class="select__date-btn">
-            <p><?php the_field('form-location__date-btn', 'option') ?></p>
-            <img
-              src="./img/icons/date.svg"
-              alt=""
-              class="select__wrapper-img" />
-          </div>
-
-          <span><?php the_field('form-location__date-hint', 'option') ?></span>
-
-          <!-- Выбор начала похода -->
-          <div class="select__date-input">
-            <div class="input__date-wrapper">
-              <label class="hero__form-label">
-
-                <p><?php the_field('form-location__start-date', 'option') ?></p>
-
-                <input type="date" class="form__input-date" />
-              </label>
-              <!-- Выбор окончания похода -->
-              <label class="hero__form-label">
-
-                <p><?php the_field('form-location__finish-date', 'option') ?></p>
-
-                <input type="date" class="form__input-date" />
-              </label>
-            </div>
-          </div>
-        </div>
-        <div class="select__date-input--mobile">
-          <div class="input__date-wrapper">
-            <label class="hero__form-label">
-              <p><?php the_field('form-location__start-date', 'option') ?></p>
-              <input type="date" class="form__input-date" />
-            </label>
-            <!-- Выбор окончания похода -->
-            <label class="hero__form-label">
-              <p><?php the_field('form-location__finish-date', 'option') ?></p>
-              <input type="date" class="form__input-date" />
-            </label>
-          </div>
-        </div>
-        <!-- Кол-во участников похода------------- -->
-        <div class="select__wrapper">
-          <label class="hero__form-label">
-            <select
-              name="participants_count"
-              class="form__input hero__form-input">
-
-              <option value="none"><?php the_field('form-location__btn-participants', 'option') ?></option>
-
-              <?php
-              if (have_rows('form-location__groups-repeater', 'option')):
-                while (have_rows('form-location__groups-repeater', 'option')) : the_row(); ?>
-
-
-                  <option value="<?php echo get_sub_field('groups-repeater__count', 'option')['value'] ?>"><?php echo get_sub_field('groups-repeater__count', 'option')['label'] ?></option>
-
-              <?php
-                endwhile;
-
-              else :
-                echo 'Поля не заданы!';
-              endif;
-              ?>
-
-            </select>
-            <span><?php the_field('form-location__btn-participants-hint', 'option') ?></span>
-          </label>
-          <img
-            src="./img/icons/arrow.svg"
-            alt=""
-            class="select__wrapper-img" />
-        </div>
-        <button class="btn header__form-btn" type="submit">
-          <?php the_field('form-location__btn-find-program', 'option') ?>
-        </button>
-      </form>
-      <button class="btn header__form-btn header__form-btn-mobile">
-        <?php the_field('form-location__btn-find-program', 'option') ?>
-      </button>
+      <?php do_shortcode('[form-select-location]') ?>
     </div>
   </section>
+
 
   <!-- Секция Explore=========================================== -->
 
   <section class="explore">
     <div class="container explore__inner">
+
       <div class="explore__video">
         <div class="explore__video-img explore__video-img--back">
-          <img src="<?php echo get_field('explore__second-img')['url'] ?>" alt="<?php echo get_field('explore__second-img')['alt'] ?>" />
+          <img loading="lazy" src="<?php echo get_field('explore__second-img')['sizes']['large'] ?>" alt="<?php echo get_field('explore__second-img')['alt'] ?>" />
         </div>
         <div class="explore__video-img explore__video-img--front">
-          <img src="<?php echo get_field('explore__first-img')['url'] ?>" alt="<?php echo get_field('explore__first-img')['alt'] ?>" />
+          <img loading="lazy" src="<?php echo get_field('explore__first-img')['sizes']['large'] ?>" alt="<?php echo get_field('explore__first-img')['alt'] ?>" />
           <div class="video__control">
             <a
               data-fslightbox
@@ -185,274 +73,155 @@ get_header();
   <section class="suggestion">
     <div class="container suggestion__inner">
       <div class="suggestion__desc desc">
-        <span>наше предложение</span>
-        <h2 class="title">Лучшие программы для тебя</h2>
+        <span><?php the_field('suggestion__subtitle') ?></span>
+        <h2 class="title"><?php the_field('suggestion__title') ?></h2>
         <p class="desc__text">
-          Его корни уходят в один фрагмент классической латыни 45 года
-          н.э., то есть более двух тысячелетий назад. Ричард МакКлинток,
-          профессор латыни из колледжа.
+          <?php the_field('suggestion__descr') ?>
         </p>
         <ul class="suggestion__list">
-          <li class="suggestion__item">
-            <img src="./img/icons/suggestion/sug-2.png" alt="" />
-            <div class="suggestion__item-wrapper">
-              <h5 class="suggestion__list-title">Опытный гид</h5>
-              <p class="suggestion__list-text">
-                Для современного мира базовый вектор развития предполагает
-                независимые способы реализации соответствующих условий
-                активизации.
-              </p>
-            </div>
-          </li>
-          <li class="suggestion__item">
-            <img src="./img/icons/suggestion/sug-3.png" alt="" />
-            <div class="suggestion__item-wrapper">
-              <h5 class="suggestion__list-title">Безопасный поход</h5>
-              <p class="suggestion__list-text">
-                Для современного мира базовый вектор развития предполагает
-                независимые способы реализации соответствующих условий
-                активизации.
-              </p>
-            </div>
-          </li>
-          <li class="suggestion__item">
-            <img src="./img/icons/suggestion/sug-1.png" alt="" />
-            <div class="suggestion__item-wrapper">
-              <h5 class="suggestion__list-title">Лояльные цены</h5>
-              <p class="suggestion__list-text">
-                Для современного мира базовый вектор развития предполагает
-                независимые способы реализации соответствующих условий
-                активизации.
-              </p>
-            </div>
-          </li>
+          <?php
+
+          // проверяем есть ли в повторителе данные
+          if (have_rows('suggestion-repeater')):
+
+            // перебираем данные
+            while (have_rows('suggestion-repeater')) : the_row();
+
+              // отображаем вложенные поля
+          ?>
+
+              <li class="suggestion__item">
+                <img loading="lazy" src="<?php echo get_sub_field('img')['sizes']['thumbnail'] ?>" alt="<?php echo get_sub_field('img')['alt'] ?>" />
+                <div class="suggestion__item-wrapper">
+
+                  <h5 class="suggestion__list-title"><?php the_sub_field('title') ?></h5>
+                  <p class="suggestion__list-text">
+                    <?php the_sub_field('descr') ?>
+                  </p>
+                </div>
+              </li>
+
+          <?php
+            endwhile;
+
+          else :
+
+          // вложенных полей не найдено
+
+          endif;
+
+          ?>
         </ul>
-        <button class="btn desc__btn">Стоимость программ</button>
+        <a href="<?php echo get_field('suggestion__btn')['url'] ?>" class="btn desc__btn"><?php echo get_field('suggestion__btn')['title'] ?></a>
       </div>
-      <div class="suggestion__pictures">
-        <div class="suggestion__pictures-img">
-          <img src="./img/content/suggestion/sug1.jpeg" alt="" />
-        </div>
-        <div class="suggestion__pictures-img">
-          <img src="./img/content/suggestion/sug2.jpeg" alt="" />
-        </div>
-        <div class="suggestion__pictures-img">
-          <img src="./img/content/suggestion/sug3.jpeg" alt="" />
-        </div>
-        <div class="suggestion__pictures-img">
-          <img src="./img/content/suggestion/sug4.jpeg" alt="" />
-        </div>
-      </div>
+
+      <?php
+
+      $images = get_field('suggestion__gallery');
+
+      if ($images): ?>
+        <ul class="suggestion__pictures">
+          <?php foreach ($images as $image): ?>
+            <li class="suggestion__pictures-img">
+              <img loading="lazy" src="<?php echo $image['sizes']['medium'] ?>" />
+            </li>
+          <?php endforeach; ?>
+        </ul>
+      <?php endif; ?>
+
     </div>
   </section>
-  
+
+  <!-- Section popular dest ==========================================-->
+
   <section class="popular-dest">
     <div class="container popular-dest__inner">
       <div class="popular-dest__desc desc">
-        <span>по версии отдыхающих</span>
-        <h2 class="title">Популярные направления</h2>
+        <span><?php the_field('popular__subtitle') ?></span>
+        <h2 class="title"><?php the_field('popular__title') ?></h2>
       </div>
       <div class="popular-dest__gallery">
         <!-- Slider main container -->
         <div class="popular-dest__slider swiper">
           <!-- Additional required wrapper -->
           <div class="swiper-wrapper">
-            <!-- Slide-1 -->
-            <div class="popular-dest__slide swiper-slide">
-              <div class="popular-dest__item">
-                <div class="popular-dest__item-img">
-                  <img
-                    src="./img/content/popular-dest/dest1.jpeg"
-                    alt="" />
-                </div>
-                <div class="popular-dest__item-desc">
-                  <div class="popular-desc__item-top">
-                    <div>
-                      <h3 class="popular-dest__item-desc-title">
-                        Озеро возле гор
-                      </h3>
-                      <p class="popular-dest__item-desc-text">
-                        романтическое приключение
-                      </p>
+
+            <?php
+            // Параметры запроса
+            $args = array(
+              'post_type' => 'popular-dest', // Тип записи
+              // 'posts_per_page' => 10, // Количество записей на странице
+              'orderby' => 'date', // Сортировка по дате
+              'order' => 'DESC', // Сортировка по убыванию
+              // 'category_name' => 'news', // Пример: записи из категории "news"
+            );
+
+            // Создаем новый экземпляр WP_Query
+            $query = new WP_Query($args);
+
+            // Проверяем, есть ли записи
+            if ($query->have_posts()) {
+              while ($query->have_posts()) {
+                $query->the_post();
+                if (has_post_thumbnail()) {
+                  $thumbnail_id = get_post_thumbnail_id();
+                  $alt_text = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
+                }
+
+            ?>
+
+                <div class="popular-dest__slide swiper-slide">
+                  <div class="popular-dest__item">
+                    <div class="popular-dest__item-img">
+                      <img
+                        loading="lazy"
+                        src="<?php the_post_thumbnail_url('large') ?>"
+                        alt="<?php echo esc_attr($alt_text) ?>" />
                     </div>
-                    <div class="popular-dest__item-price">480 $</div>
-                  </div>
-                  <p class="popular-dest__item-desc-text">
-                    Его корни уходят в один фрагмент классической латыни
-                    45 года н.э., то есть более двух тысячелетий назад.
-                    Ричард МакКлинток, профессор латыни из колледжа
-                    Hampden-Sydney, штат Вирджиния, взял одно из самых
-                    странных слов в Lorem Ipsum, "consectetur"и занялся
-                    его поисками в классической латинской литературе.
-                  </p>
-                  <button class="btn popular-dest__btn">
-                    Программа тура
-                  </button>
-                </div>
-                <div class="rating popular-dest__rating">
-                  <img src="./img/icons/star.png" alt="" />
-                  <span>4.9</span>
-                </div>
-              </div>
-            </div>
-            <!-- Slide-2 -->
-            <div class="popular-dest__slide swiper-slide">
-              <div class="popular-dest__item">
-                <div class="popular-dest__item-img">
-                  <img
-                    src="./img/content/popular-dest/dest2.jpeg"
-                    alt="" />
-                </div>
-                <div class="popular-dest__item-desc">
-                  <div class="popular-desc__item-top">
-                    <div>
-                      <h3 class="popular-dest__item-desc-title">
-                        Ночь в горах
-                      </h3>
+                    <div class="popular-dest__item-desc">
+                      <div class="popular-desc__item-top">
+                        <div>
+                          <h3 class="popular-dest__item-desc-title">
+                            <?php the_title() ?>
+                          </h3>
+                          <p class="popular-dest__item-desc-text">
+                            <?php the_field('popular-dest__descr') ?>
+                          </p>
+                        </div>
+                        <div class="popular-dest__item-price"><?php the_field('popular-dest__price') ?> $</div>
+                      </div>
                       <p class="popular-dest__item-desc-text">
-                        в компании друзей
+                        <?php the_excerpt() ?>
                       </p>
+                      <a href="<?php the_permalink() ?>" class="btn popular-dest__btn">
+                        <?php the_field('popular-dest__btn') ?>
+                      </a>
                     </div>
-                    <div class="popular-dest__item-price">480 $</div>
-                  </div>
-                  <p class="popular-dest__item-desc-text">
-                    Его корни уходят в один фрагмент классической латыни
-                    45 года н.э., то есть более двух тысячелетий назад.
-                    Ричард МакКлинток, профессор латыни из колледжа
-                    Hampden-Sydney, штат Вирджиния, взял одно из самых
-                    странных слов в Lorem Ipsum, "consectetur"и занялся
-                    его поисками в классической латинской литературе.
-                  </p>
-                  <button class="btn popular-dest__btn">
-                    Программа тура
-                  </button>
-                </div>
-                <div class="rating popular-dest__rating">
-                  <img src="./img/icons/star.png" alt="" />
-                  <span>4.9</span>
-                </div>
-              </div>
-            </div>
-            <!-- Slide-3 -->
-            <div class="popular-dest__slide swiper-slide">
-              <div class="popular-dest__item">
-                <div class="popular-dest__item-img">
-                  <img
-                    src="./img/content/popular-dest/dest3.jpeg"
-                    alt="" />
-                </div>
-                <div class="popular-dest__item-desc">
-                  <div class="popular-desc__item-top">
-                    <div>
-                      <h3 class="popular-dest__item-desc-title">
-                        Йога в горах
-                      </h3>
-                      <p class="popular-dest__item-desc-text">
-                        для тех, кто забоится о себе
-                      </p>
+                    
+                    <div class="rating popular-dest__rating">
+                      <img src="<?php echo get_field('popular-dest__rating-img')['sizes']['thumbnail'] ?>" />
+                      <span><?php the_field('popular-dest__rating') ?></span>
                     </div>
-                    <div class="popular-dest__item-price">230 $</div>
                   </div>
-                  <p class="popular-dest__item-desc-text">
-                    Его корни уходят в один фрагмент классической латыни
-                    45 года н.э., то есть более двух тысячелетий назад.
-                    Ричард МакКлинток, профессор латыни из колледжа
-                    Hampden-Sydney, штат Вирджиния, взял одно из самых
-                    странных слов в Lorem Ipsum, "consectetur"и занялся
-                    его поисками в классической латинской литературе.
-                  </p>
-                  <button class="btn popular-dest__btn">
-                    Программа тура
-                  </button>
                 </div>
-                <div class="rating popular-dest__rating">
-                  <img src="./img/icons/star.png" alt="" />
-                  <span>4.9</span>
-                </div>
-              </div>
-            </div>
-            <!-- Slide-1 -->
-            <div class="popular-dest__slide swiper-slide">
-              <div class="popular-dest__item">
-                <div class="popular-dest__item-img">
-                  <img
-                    src="./img/content/popular-dest/dest1.jpeg"
-                    alt="" />
-                </div>
-                <div class="popular-dest__item-desc">
-                  <div class="popular-desc__item-top">
-                    <div>
-                      <h3 class="popular-dest__item-desc-title">
-                        Озеро возле гор
-                      </h3>
-                      <p class="popular-dest__item-desc-text">
-                        романтическое приключение
-                      </p>
-                    </div>
-                    <div class="popular-dest__item-price">480 $</div>
-                  </div>
-                  <p class="popular-dest__item-desc-text">
-                    Его корни уходят в один фрагмент классической латыни
-                    45 года н.э., то есть более двух тысячелетий назад.
-                    Ричард МакКлинток, профессор латыни из колледжа
-                    Hampden-Sydney, штат Вирджиния, взял одно из самых
-                    странных слов в Lorem Ipsum, "consectetur"и занялся
-                    его поисками в классической латинской литературе.
-                  </p>
-                  <button class="btn popular-dest__btn">
-                    Программа тура
-                  </button>
-                </div>
-                <div class="rating popular-dest__rating">
-                  <img src="./img/icons/star.png" alt="" />
-                  <span>4.9</span>
-                </div>
-              </div>
-            </div>
-            <!-- Slide-1 -->
-            <div class="popular-dest__slide swiper-slide">
-              <div class="popular-dest__item">
-                <div class="popular-dest__item-img">
-                  <img
-                    src="./img/content/popular-dest/dest1.jpeg"
-                    alt="" />
-                </div>
-                <div class="popular-dest__item-desc">
-                  <div class="popular-desc__item-top">
-                    <div>
-                      <h3 class="popular-dest__item-desc-title">
-                        Озеро возле гор
-                      </h3>
-                      <p class="popular-dest__item-desc-text">
-                        романтическое приключение
-                      </p>
-                    </div>
-                    <div class="popular-dest__item-price">480 $</div>
-                  </div>
-                  <p class="popular-dest__item-desc-text">
-                    Его корни уходят в один фрагмент классической латыни
-                    45 года н.э., то есть более двух тысячелетий назад.
-                    Ричард МакКлинток, профессор латыни из колледжа
-                    Hampden-Sydney, штат Вирджиния, взял одно из самых
-                    странных слов в Lorem Ipsum, "consectetur"и занялся
-                    его поисками в классической латинской литературе.
-                  </p>
-                  <button class="btn popular-dest__btn">
-                    Программа тура
-                  </button>
-                </div>
-                <div class="rating popular-dest__rating">
-                  <img src="./img/icons/star.png" alt="" />
-                  <span>4.9</span>
-                </div>
-              </div>
-            </div>
+            <?php
+              }
+              // Восстанавливаем оригинальные данные записи
+              wp_reset_postdata();
+            } else {
+              echo 'Записей не найдено.';
+            }
+            ?>
+
           </div>
         </div>
       </div>
-      <button class="btn popular__btn">Рейтинг направлений</button>
+      <a href="<?php echo get_field('popular__btn')['url'] ?>" class="btn popular__btn"><?php echo get_field('popular__btn')['title'] ?></a>
     </div>
   </section>
+
+  <!-- Section blog =================================================== -->
+
   <section class="blog">
     <div class="container blog__inner">
       <div class="blog__desc desc">

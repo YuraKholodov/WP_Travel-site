@@ -628,6 +628,7 @@ select {
 .header__form-btn-mobile {
   display: none;
   padding: 16px 36px;
+  margin-top: 10px;
 }
 
 /* Explore ============================================ */
@@ -765,7 +766,7 @@ select {
 .suggestion__pictures {
   display: grid;
   grid-template-columns: repeat(2, minmax(100px, 250px));
-  grid-template-rows: repeat(2, auto);
+  grid-auto-rows: 200px;
   gap: 10px;
 }
 
@@ -774,13 +775,14 @@ select {
   border-radius: 0px 50px 0px 50px;
 }
 
-.suggestion__pictures-img:nth-child(2),
-.suggestion__pictures-img:nth-child(3) {
+.suggestion__pictures-img:nth-child(4n-2),
+.suggestion__pictures-img:nth-child(4n-1) {
   border-radius: 50px 0px 50px 0px;
 }
 
-.suggestion__pictures-img > img {
+.suggestion__pictures-img img {
   width: 100%;
+  height: 100%;
   object-fit: cover;
   object-position: center;
 }
@@ -877,6 +879,7 @@ select {
 }
 
 .popular__btn {
+  display: inline-block;
   margin: 50px 0 50px;
 }
 
@@ -1342,8 +1345,7 @@ select {
     grid-template-columns: minmax(100px, 350px);
   }
 
-  .suggestion__pictures-img:nth-child(2),
-  .suggestion__pictures-img:nth-child(3) {
+  .suggestion__pictures-img:nth-child(2n-1) {
     display: none;
   }
 
@@ -1509,6 +1511,10 @@ select {
   }
 
   .select__date-input {
+    display: none;
+  }
+
+  .header__form-btn {
     display: none;
   }
 
