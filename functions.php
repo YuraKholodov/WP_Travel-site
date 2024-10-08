@@ -110,3 +110,7 @@ function formSelectLocation()
 {
 	require 'shortcodes/form-select-location.php';
 }
+
+add_filter('excerpt_more', function ($more) {
+	return '...';
+});

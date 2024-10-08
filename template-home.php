@@ -138,7 +138,7 @@ get_header();
     <div class="container popular-dest__inner">
       <div class="popular-dest__desc desc">
         <span><?php the_field('popular__subtitle') ?></span>
-        <h2 class="title"><?php the_field('popular__title') ?></h2>
+        <h2 class="title"><?php the_title() ?></h2>
       </div>
       <div class="popular-dest__gallery">
         <!-- Slider main container -->
@@ -150,7 +150,7 @@ get_header();
             // Параметры запроса
             $args = array(
               'post_type' => 'popular-dest', // Тип записи
-              // 'posts_per_page' => 10, // Количество записей на странице
+              'posts_per_page' => 10, // Количество записей на странице
               'orderby' => 'date', // Сортировка по дате
               'order' => 'DESC', // Сортировка по убыванию
               // 'category_name' => 'news', // Пример: записи из категории "news"
@@ -190,14 +190,21 @@ get_header();
                         </div>
                         <div class="popular-dest__item-price"><?php the_field('popular-dest__price') ?> $</div>
                       </div>
-                      <p class="popular-dest__item-desc-text">
+                      <div class="popular-dest__item-desc-text">
+
+                        <?php add_filter('excerpt_length', function () {
+                          return 30;
+                        }); ?>
                         <?php the_excerpt() ?>
-                      </p>
+
+                      </div>
+
                       <a href="<?php the_permalink() ?>" class="btn popular-dest__btn">
                         <?php the_field('popular-dest__btn') ?>
                       </a>
+
                     </div>
-                    
+
                     <div class="rating popular-dest__rating">
                       <img src="<?php echo get_field('popular-dest__rating-img')['sizes']['thumbnail'] ?>" />
                       <span><?php the_field('popular-dest__rating') ?></span>
@@ -225,160 +232,74 @@ get_header();
   <section class="blog">
     <div class="container blog__inner">
       <div class="blog__desc desc">
-        <span>делимся впечатлениями</span>
-        <h2 class="title">Блог о путешествиях</h2>
+        <span><?php the_field('blog__subtitle') ?></span>
+        <h2 class="title"><?php the_field('blog__title') ?></h2>
       </div>
       <div class="blog__body">
         <!-- Slider main container -->
         <div class="blog__slider swiper">
           <!-- Additional required wrapper -->
           <div class="blog__slider-wrapper swiper-wrapper">
-            <!-- Slide-1 -->
-            <div class="blog__slide swiper-slide">
-              <div class="blog__item">
-                <div class="blog__item-img">
-                  <img src="./img/content/blog/blog4.jpeg" alt="" />
-                </div>
-                <div class="blog__item-desc">
-                  <div class="blog__item-top">
-                    <h3 class="blog__item-title">
-                      Красивая Италя, какая она в реальности?
-                    </h3>
-                    <p class="blog__item-text">
-                      Для современного мира базовый вектор развития
-                      предполагает независимые способы реализации
-                      соответствующих условий активизации.
-                    </p>
-                  </div>
-                  <div class="blog__item-bottom">
-                    <span class="blog__item-date">01/04/2023</span>
-                    <a class="blog__item-link" href="#">читать статью</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Slide-2 -->
-            <div class="blog__slide swiper-slide">
-              <div class="blog__item">
-                <div class="blog__item-img">
-                  <img src="./img/content/blog/blog1.jpeg" alt="" />
-                </div>
-                <div class="blog__item-desc">
-                  <div class="blog__item-top">
-                    <h3 class="blog__item-title">
-                      Долой сомнения! Весь мир открыт для вас!
-                    </h3>
-                    <p class="blog__item-text">
-                      Для современного мира базовый вектор развития
-                      предполагает независимые способы реализации
-                      соответствующих условий активизации.
-                    </p>
-                  </div>
-                  <div class="blog__item-bottom">
-                    <span class="blog__item-date">01/04/2023</span>
-                    <a class="blog__item-link" href="#">читать статью</a>
+
+            <?php
+            // The Query
+            $query = new WP_Query(array(
+              'post_type' => 'post', // Fetch posts of type 'post'
+              // 'posts_per_page' => 5, // Fetch 5 posts
+              'orderby' => 'date', // Order by date
+              'order' => 'DESC' // Order in descending order (newest first)
+            ));
+
+            // The Loop
+            if ($query->have_posts()) {
+              while ($query->have_posts()) {
+                $query->the_post();
+                if (has_post_thumbnail()) {
+                  $thumbnail_id = get_post_thumbnail_id();
+                  $alt_text = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
+                }
+            ?>
+
+                <div class="blog__slide swiper-slide">
+                  <div class="blog__item">
+                    <div class="blog__item-img">
+                      <img src="<?php the_post_thumbnail_url('medium') ?>" alt="<?php if(!empty($alt_text)){echo esc_attr($alt_text);} ?>" />
+                    </div>
+                    <div class="blog__item-desc">
+                      <div class="blog__item-top">
+                        <h3 class="blog__item-title">
+                          <?php the_title(); ?>
+                        </h3>
+                        <p class="blog__item-text">
+                          <?php add_filter('excerpt_length', function () {
+                            return 10;
+                          }); ?>
+                          <?php the_excerpt(); ?>
+                        </p>
+                      </div>
+                      <div class="blog__item-bottom">
+                        <span class="blog__item-date"><?php echo get_the_date('d.m.Y') ?></span>
+                        <a class="blog__item-link" href="<?php the_permalink() ?>"><?php the_field('blog__link') ?></a>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <!-- Slide-3 -->
-            <div class="blog__slide swiper-slide">
-              <div class="blog__item">
-                <div class="blog__item-img">
-                  <img src="./img/content/blog/blog2.jpeg" alt="" />
-                </div>
-                <div class="blog__item-desc">
-                  <div class="blog__item-top">
-                    <h3 class="blog__item-title">
-                      Как подготовиться к путешествию в одиночку?
-                    </h3>
-                    <p class="blog__item-text">
-                      Для современного мира базовый вектор развития
-                      предполагает независимые способы реализации
-                      соответствующих условий активизации.
-                    </p>
-                  </div>
-                  <div class="blog__item-bottom">
-                    <span class="blog__item-date">01/04/2023</span>
-                    <a class="blog__item-link" href="#">читать статью</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Slide-4 -->
-            <div class="blog__slide swiper-slide">
-              <div class="blog__item">
-                <div class="blog__item-img">
-                  <img src="./img/content/blog/blog3.jpeg" alt="" />
-                </div>
-                <div class="blog__item-desc">
-                  <div class="blog__item-top">
-                    <h3 class="blog__item-title">Индия ... летим?</h3>
-                    <p class="blog__item-text">
-                      Для современного мира базовый вектор развития
-                      предполагает независимые способы реализации
-                      соответствующих условий активизации.
-                    </p>
-                  </div>
-                  <div class="blog__item-bottom">
-                    <span class="blog__item-date">01/04/2023</span>
-                    <a class="blog__item-link" href="#">читать статью</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Slide-5 -->
-            <div class="blog__slide swiper-slide">
-              <div class="blog__item">
-                <div class="blog__item-img">
-                  <img src="./img/content/blog/blog4.jpeg" alt="" />
-                </div>
-                <div class="blog__item-desc">
-                  <div class="blog__item-top">
-                    <h3 class="blog__item-title">
-                      Красивая Италя, какая она в реальности?
-                    </h3>
-                    <p class="blog__item-text">
-                      Для современного мира базовый вектор развития
-                      предполагает независимые способы реализации
-                      соответствующих условий активизации.
-                    </p>
-                  </div>
-                  <div class="blog__item-bottom">
-                    <span class="blog__item-date">01/04/2023</span>
-                    <a class="blog__item-link" href="#">читать статью</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Slide-6 -->
-            <div class="blog__slide swiper-slide">
-              <div class="blog__item">
-                <div class="blog__item-img">
-                  <img src="./img/content/blog/blog4.jpeg" alt="" />
-                </div>
-                <div class="blog__item-desc">
-                  <div class="blog__item-top">
-                    <h3 class="blog__item-title">
-                      Красивая Италя, какая она в реальности?
-                    </h3>
-                    <p class="blog__item-text">
-                      Для современного мира базовый вектор развития
-                      предполагает независимые способы реализации
-                      соответствующих условий активизации.
-                    </p>
-                  </div>
-                  <div class="blog__item-bottom">
-                    <span class="blog__item-date">01/04/2023</span>
-                    <a class="blog__item-link" href="#">читать статью</a>
-                  </div>
-                </div>
-              </div>
-            </div>
+
+            <?php
+              }
+            } else {
+              // no posts found
+              echo 'No posts found.';
+            }
+
+            // Restore original Post Data
+            wp_reset_postdata();
+            ?>
+
           </div>
         </div>
       </div>
-      <button class="btn popular__btn">Другие материалы</button>
+      <button class="btn popular__btn"><?php the_field('blog__btn') ?></button>
     </div>
   </section>
   <section class="impressions">
