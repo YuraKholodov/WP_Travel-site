@@ -263,7 +263,9 @@ get_header();
                 <div class="blog__slide swiper-slide">
                   <div class="blog__item">
                     <div class="blog__item-img">
-                      <img src="<?php the_post_thumbnail_url('medium') ?>" alt="<?php if(!empty($alt_text)){echo esc_attr($alt_text);} ?>" />
+                      <img src="<?php the_post_thumbnail_url('medium') ?>" alt="<?php if (!empty($alt_text)) {
+                                                                                  echo esc_attr($alt_text);
+                                                                                } ?>" />
                     </div>
                     <div class="blog__item-desc">
                       <div class="blog__item-top">
@@ -302,49 +304,35 @@ get_header();
       <button class="btn popular__btn"><?php the_field('blog__btn') ?></button>
     </div>
   </section>
+
+  <!-- Section impression ================================================== -->
   <section class="impressions">
     <div class="container impressions__inner">
       <div class="impressions__desc desc">
-        <span>фото-отчет</span>
-        <h2 class="title">Делимся впечатлениями</h2>
+        <span><?php the_field('impressions__subtitle') ?></span>
+        <h2 class="title"><?php the_field('impressions__title') ?></h2>
       </div>
       <div class="impressions__gallery">
         <!-- Slider main container -->
         <div class="impressions__slider-1 swiper">
           <!-- Additional required wrapper -->
           <div class="impressions__slider-wrapper swiper-wrapper">
-            <!-- Slide-1 -->
-            <div class="impressions__slide swiper-slide">
-              <img src="./img/content/impressions/imp1.jpeg" alt="" />
-            </div>
-            <!-- Slide-1 -->
-            <div class="impressions__slide swiper-slide">
-              <img src="./img/content/impressions/imp2.jpeg" alt="" />
-            </div>
-            <!-- Slide-1 -->
-            <div class="impressions__slide swiper-slide">
-              <img src="./img/content/impressions/imp3.jpeg" alt="" />
-            </div>
-            <!-- Slide-1 -->
-            <div class="impressions__slide swiper-slide">
-              <img src="./img/content/impressions/imp4.jpeg" alt="" />
-            </div>
-            <div class="impressions__slide swiper-slide">
-              <img src="./img/content/impressions/imp5.jpeg" alt="" />
-            </div>
-            <div class="impressions__slide swiper-slide">
-              <img src="./img/content/impressions/imp6.jpeg" alt="" />
-            </div>
-            <!-- Slide-1 -->
-            <div class="impressions__slide swiper-slide">
-              <img src="./img/content/impressions/imp4.jpeg" alt="" />
-            </div>
-            <div class="impressions__slide swiper-slide">
-              <img src="./img/content/impressions/imp5.jpeg" alt="" />
-            </div>
-            <div class="impressions__slide swiper-slide">
-              <img src="./img/content/impressions/imp6.jpeg" alt="" />
-            </div>
+
+            <?php
+
+            $images = get_field('impressions__gallery-1');
+
+            if ($images): ?>
+              <?php foreach ($images as $image): ?>
+                <div class="impressions__slide swiper-slide">
+                  <a data-fslightbox="first-lightbox" href="<?php echo $image['sizes']['large']; ?>">
+                    <img loading="lazy" src="<?php echo $image['sizes']['medium']; ?>" alt="<?php echo $image['alt']; ?>" />
+                  </a>
+                </div>
+
+              <?php endforeach; ?>
+            <?php endif; ?>
+
           </div>
         </div>
       </div>
@@ -353,56 +341,27 @@ get_header();
         <div class="impressions__slider-2 swiper">
           <!-- Additional required wrapper -->
           <div class="impressions__slider-wrapper swiper-wrapper">
-            <!-- Slide-1 -->
-            <div class="impressions__slide swiper-slide">
-              <img src="./img/content/impressions/imp3.jpeg" alt="" />
-            </div>
-            <!-- Slide-1 -->
-            <div class="impressions__slide swiper-slide">
-              <img src="./img/content/impressions/imp4.jpeg" alt="" />
-            </div>
-            <div class="impressions__slide swiper-slide">
-              <img src="./img/content/impressions/imp5.jpeg" alt="" />
-            </div>
-            <div class="impressions__slide swiper-slide">
-              <img src="./img/content/impressions/imp6.jpeg" alt="" />
-            </div>
-            <!-- Slide-1 -->
-            <div class="impressions__slide swiper-slide">
-              <img src="./img/content/impressions/imp4.jpeg" alt="" />
-            </div>
-            <div class="impressions__slide swiper-slide">
-              <img src="./img/content/impressions/imp5.jpeg" alt="" />
-            </div>
-            <div class="impressions__slide swiper-slide">
-              <img src="./img/content/impressions/imp6.jpeg" alt="" />
-            </div>
+
+            <?php
+
+            $images = get_field('impressions__gallery-2');
+
+            if ($images): ?>
+              <?php foreach ($images as $image): ?>
+                <div class="impressions__slide swiper-slide">
+                  <a data-fslightbox="second-lightbox" href="<?php echo $image['sizes']['large']; ?>">
+                    <img loading="lazy" src="<?php echo $image['sizes']['medium']; ?>" alt="<?php echo $image['alt']; ?>" />
+                  </a>
+                </div>
+
+              <?php endforeach; ?>
+            <?php endif; ?>
+
           </div>
         </div>
       </div>
-      <button class="btn impressions__btn">Наш pinterest</button>
-      <div class="mailing">
-        <div class="mailing__desc desc">
-          <span>актуально</span>
-          <h2 class="title mailing__title">
-            Получайте полезные рассылки о путешествиях
-          </h2>
-        </div>
-        <div class="mailing__body">
-          <form class="mailing__form">
-            <label>
-              Введите e-mail адрес
-              <input class="mailing__form-input" type="email" placeholder="Email" />
-            </label>
-            <button class="btn mailing__btn" type="submit">
-              Подписаться на новости
-            </button>
-          </form>
-          <span>подписываясь на новости, вы автоматически соглашаетесь с
-            условиями обработки персональных данных и правилами рекламных
-            рассылок</span>
-        </div>
-      </div>
+      <a href="<?php echo get_field('impressions__btn')['url'] ?>" class="btn impressions__btn"><?php echo get_field('impressions__btn')['title'] ?></a>
+      <?php do_shortcode('[mailing]') ?>
     </div>
   </section>
 </main>

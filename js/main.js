@@ -153,7 +153,10 @@
   new Swiper(".popular-dest__slider", {
     slidesPerView: 1.2,
     spaceBetween: 40,
-
+    loop: true,
+    autoplay: {
+      delay: 3000,
+    },
     breakpoints: {
       600: {
         slidesPerView: 2,
@@ -171,7 +174,10 @@
   new Swiper(".blog__slider", {
     slidesPerView: "auto",
     spaceBetween: 20,
-
+    loop: true,
+    autoplay: {
+      delay: 3000,
+    },
     breakpoints: {
       900: {
         slidesPerView: "auto",
@@ -192,6 +198,10 @@
   new Swiper(".impressions__slider-1", {
     slidesPerView: 1.2,
     spaceBetween: 20,
+    loop: true,
+    autoplay: {
+      delay: 3000,
+    },
     breakpoints: {
       600: {
         slidesPerView: 2,
@@ -208,6 +218,11 @@
     slidesPerView: 1.2,
     spaceBetween: 20,
     width: 250,
+    loop: true,
+    autoplay: {
+      reverseDirection: true,
+      delay: 2000,
+    },
     breakpoints: {
       600: {
         slidesPerView: 2,

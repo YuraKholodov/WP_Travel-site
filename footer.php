@@ -2,19 +2,41 @@
   <section class="footer__top">
     <div class="container footer__top-inner">
       <div class="footer__col-about">
-        <h4 class="footer__top-title">Компания «РумТибет»</h4>
+        <h4 class="footer__top-title"><?php the_field('footer__about-title', 'option') ?></h4>
         <p class="footer__top-text">
-          Его корни уходят в один фрагмент классической латыни 45 года
-          н.э., то есть более двух тысячелетий назад. Ричард МакКлинток,
-          профессор латыни из колледжа Hampden-Sydney.
+          <?php the_field('footer__about-descr', 'option') ?>
         </p>
         <address class="footer__top-address">
-          <a href="mailto:info@domain.com">info@domain.com</a>
-          <a href="tel:+71234567890">+7 (123) 456-78-90</a>
+          <?php
+
+          // проверяем есть ли в повторителе данные
+          if (have_rows('footer__address-repeater', 'option')):
+
+            // перебираем данные
+            while (have_rows('footer__address-repeater', 'option')) : the_row();
+
+              // отображаем вложенные поля
+          ?>
+
+              <a href="<?php echo get_sub_field('link')['url'] ?>"><?php echo get_sub_field('link')['title'] ?></a>
+
+          <?php
+            endwhile;
+
+          else :
+
+          // вложенных полей не найдено
+
+          endif;
+
+          ?>
+
         </address>
         <ul class="social__list">
-          <li class="social__item">
-            <a class="social__link" href="#"><svg
+
+          <li class="social__item" <?php if (!get_field('footer__isPinterest', 'option')) echo "style='display: none;'" ?>>
+            <a class="social__link" href="<?php the_field('footer__pinterest-link', 'option') ?>">
+              <svg
                 width="32.000000"
                 height="32.000000"
                 viewBox="0 0 32 32"
@@ -53,8 +75,8 @@
               </svg>
             </a>
           </li>
-          <li class="social__item">
-            <a class="social__link" href="#">
+          <li class="social__item" <?php if (!get_field('footer__isSkype', 'option')) echo "style='display: none;'" ?>>
+            <a class="social__link" href="<?php the_field('footer__skype-link', 'option') ?>">
               <svg
                 width="32.000000"
                 height="32.000000"
@@ -94,8 +116,8 @@
               </svg>
             </a>
           </li>
-          <li class="social__item">
-            <a class="social__link" href="#">
+          <li class="social__item" <?php if (!get_field('footer__isVK', 'option')) echo "style='display: none;'" ?>>
+            <a class="social__link" href="<?php the_field('footer__vk-link', 'option') ?>">
               <svg
                 width="32.000000"
                 height="32.000000"
@@ -135,8 +157,8 @@
               </svg>
             </a>
           </li>
-          <li class="social__item">
-            <a class="social__link" href="#">
+          <li class="social__item" <?php if (!get_field('footer__isTelegram', 'option')) echo "style='display: none;'" ?>>
+            <a class="social__link" href="<?php the_field('footer__telegram-link', 'option') ?>">
               <svg
                 width="32.000000"
                 height="32.000000"
@@ -179,131 +201,102 @@
         </ul>
       </div>
       <div class="footer__col-nav-services">
-        <h4 class="footer__top-title">Наши услуги</h4>
+        <h4 class="footer__top-title"><?php the_field('footer__our-services-title', 'option') ?></h4>
         <nav class="footer__nav">
           <ul class="footer__nav-list">
-            <li class="footer__nav-item">
-              <svg
-                width="5.874908"
-                height="10.000000"
-                viewBox="0 0 5.87491 10"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink">
-                <desc>Created with Pixso.</desc>
-                <defs />
-                <path
-                  id="Vector"
-                  d="M5.71 4.6L1.26 0.15C1.16 0.05 1.02 0 0.87 0C0.73 0 0.59 0.05 0.49 0.15L0.16 0.48C-0.05 0.7 -0.05 1.04 0.16 1.26L3.9 4.99L0.15 8.73C0.05 8.84 0 8.97 0 9.12C0 9.27 0.05 9.4 0.15 9.51L0.48 9.84C0.59 9.94 0.72 10 0.87 10C1.02 10 1.15 9.94 1.26 9.84L5.71 5.38C5.81 5.28 5.87 5.14 5.87 4.99C5.87 4.85 5.81 4.71 5.71 4.6Z"
-                  fill="#FDFDFD"
-                  fill-opacity="1.000000"
-                  fill-rule="nonzero" />
-              </svg>
-              <a href="#" class="footer__nav-link nav__link">Прогулки в горы летом</a>
-            </li>
-            <li class="footer__nav-item">
-              <svg
-                width="5.874908"
-                height="10.000000"
-                viewBox="0 0 5.87491 10"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink">
-                <desc>Created with Pixso.</desc>
-                <defs />
-                <path
-                  id="Vector"
-                  d="M5.71 4.6L1.26 0.15C1.16 0.05 1.02 0 0.87 0C0.73 0 0.59 0.05 0.49 0.15L0.16 0.48C-0.05 0.7 -0.05 1.04 0.16 1.26L3.9 4.99L0.15 8.73C0.05 8.84 0 8.97 0 9.12C0 9.27 0.05 9.4 0.15 9.51L0.48 9.84C0.59 9.94 0.72 10 0.87 10C1.02 10 1.15 9.94 1.26 9.84L5.71 5.38C5.81 5.28 5.87 5.14 5.87 4.99C5.87 4.85 5.81 4.71 5.71 4.6Z"
-                  fill="#FDFDFD"
-                  fill-opacity="1.000000"
-                  fill-rule="nonzero" />
-              </svg>
-              <a href="#" class="footer__nav-link nav__link">Зимние походы в горы</a>
-            </li>
-            <li class="footer__nav-item">
-              <svg
-                width="5.874908"
-                height="10.000000"
-                viewBox="0 0 5.87491 10"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink">
-                <desc>Created with Pixso.</desc>
-                <defs />
-                <path
-                  id="Vector"
-                  d="M5.71 4.6L1.26 0.15C1.16 0.05 1.02 0 0.87 0C0.73 0 0.59 0.05 0.49 0.15L0.16 0.48C-0.05 0.7 -0.05 1.04 0.16 1.26L3.9 4.99L0.15 8.73C0.05 8.84 0 8.97 0 9.12C0 9.27 0.05 9.4 0.15 9.51L0.48 9.84C0.59 9.94 0.72 10 0.87 10C1.02 10 1.15 9.94 1.26 9.84L5.71 5.38C5.81 5.28 5.87 5.14 5.87 4.99C5.87 4.85 5.81 4.71 5.71 4.6Z"
-                  fill="#FDFDFD"
-                  fill-opacity="1.000000"
-                  fill-rule="nonzero" />
-              </svg>
-              <a href="#" class="footer__nav-link nav__link">Посещение храмов в горах</a>
-            </li>
-            <li class="footer__nav-item">
-              <svg
-                width="5.874908"
-                height="10.000000"
-                viewBox="0 0 5.87491 10"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink">
-                <desc>Created with Pixso.</desc>
-                <defs />
-                <path
-                  id="Vector"
-                  d="M5.71 4.6L1.26 0.15C1.16 0.05 1.02 0 0.87 0C0.73 0 0.59 0.05 0.49 0.15L0.16 0.48C-0.05 0.7 -0.05 1.04 0.16 1.26L3.9 4.99L0.15 8.73C0.05 8.84 0 8.97 0 9.12C0 9.27 0.05 9.4 0.15 9.51L0.48 9.84C0.59 9.94 0.72 10 0.87 10C1.02 10 1.15 9.94 1.26 9.84L5.71 5.38C5.81 5.28 5.87 5.14 5.87 4.99C5.87 4.85 5.81 4.71 5.71 4.6Z"
-                  fill="#FDFDFD"
-                  fill-opacity="1.000000"
-                  fill-rule="nonzero" />
-              </svg>
-              <a href="#" class="footer__nav-link nav__link">Экстремальные виды туризма</a>
-            </li>
-            <li class="footer__nav-item">
-              <svg
-                width="5.874908"
-                height="10.000000"
-                viewBox="0 0 5.87491 10"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink">
-                <desc>Created with Pixso.</desc>
-                <defs />
-                <path
-                  id="Vector"
-                  d="M5.71 4.6L1.26 0.15C1.16 0.05 1.02 0 0.87 0C0.73 0 0.59 0.05 0.49 0.15L0.16 0.48C-0.05 0.7 -0.05 1.04 0.16 1.26L3.9 4.99L0.15 8.73C0.05 8.84 0 8.97 0 9.12C0 9.27 0.05 9.4 0.15 9.51L0.48 9.84C0.59 9.94 0.72 10 0.87 10C1.02 10 1.15 9.94 1.26 9.84L5.71 5.38C5.81 5.28 5.87 5.14 5.87 4.99C5.87 4.85 5.81 4.71 5.71 4.6Z"
-                  fill="#FDFDFD"
-                  fill-opacity="1.000000"
-                  fill-rule="nonzero" />
-              </svg>
-              <a href="#" class="footer__nav-link nav__link">Походы в джунглях Амазонии</a>
-              <button class="btn btn--new">new</button>
-            </li>
-            <li class="footer__nav-item">
-              <svg
-                width="5.874908"
-                height="10.000000"
-                viewBox="0 0 5.87491 10"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink">
-                <desc>Created with Pixso.</desc>
-                <defs />
-                <path
-                  id="Vector"
-                  d="M5.71 4.6L1.26 0.15C1.16 0.05 1.02 0 0.87 0C0.73 0 0.59 0.05 0.49 0.15L0.16 0.48C-0.05 0.7 -0.05 1.04 0.16 1.26L3.9 4.99L0.15 8.73C0.05 8.84 0 8.97 0 9.12C0 9.27 0.05 9.4 0.15 9.51L0.48 9.84C0.59 9.94 0.72 10 0.87 10C1.02 10 1.15 9.94 1.26 9.84L5.71 5.38C5.81 5.28 5.87 5.14 5.87 4.99C5.87 4.85 5.81 4.71 5.71 4.6Z"
-                  fill="#FDFDFD"
-                  fill-opacity="1.000000"
-                  fill-rule="nonzero" />
-              </svg>
-              <a href="#" class="footer__nav-link nav__link">Поездка в Африку</a>
-            </li>
+            <?php
+
+            // проверяем есть ли в повторителе данные
+            if (have_rows('footer__our-services-repeater', 'option')):
+
+              // перебираем данные
+              while (have_rows('footer__our-services-repeater', 'option')) : the_row();
+
+                // отображаем вложенные поля
+            ?>
+
+                <li class="footer__nav-item">
+                  <svg
+                    width="5.874908"
+                    height="10.000000"
+                    viewBox="0 0 5.87491 10"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <desc>Created with Pixso.</desc>
+                    <defs />
+                    <path
+                      id="Vector"
+                      d="M5.71 4.6L1.26 0.15C1.16 0.05 1.02 0 0.87 0C0.73 0 0.59 0.05 0.49 0.15L0.16 0.48C-0.05 0.7 -0.05 1.04 0.16 1.26L3.9 4.99L0.15 8.73C0.05 8.84 0 8.97 0 9.12C0 9.27 0.05 9.4 0.15 9.51L0.48 9.84C0.59 9.94 0.72 10 0.87 10C1.02 10 1.15 9.94 1.26 9.84L5.71 5.38C5.81 5.28 5.87 5.14 5.87 4.99C5.87 4.85 5.81 4.71 5.71 4.6Z"
+                      fill="#FDFDFD"
+                      fill-opacity="1.000000"
+                      fill-rule="nonzero" />
+                  </svg>
+                  <a href="<?php echo get_sub_field('link')['url'] ?>" class="footer__nav-link nav__link"><?php echo get_sub_field('link')['title'] ?>
+                    <button class="btn btn--new" <?php if (!get_sub_field('is-new')) echo 'style="display: none;"' ?>>new</button>
+                  </a>
+
+                </li>
+
+            <?php
+              endwhile;
+
+            else :
+
+            // вложенных полей не найдено
+
+            endif;
+
+            ?>
+
           </ul>
         </nav>
       </div>
       <div class="footer__col-nav-important">
-        <h4 class="footer__top-title">Важно для путешествий</h4>
+        <h4 class="footer__top-title"><?php the_field('footer__important-title', 'option') ?></h4>
         <nav class="footer__nav">
           <ul class="footer__nav-list">
+            <?php
+
+            // проверяем есть ли в повторителе данные
+            if (have_rows('footer__important-repeater', 'option')):
+
+              // перебираем данные
+              while (have_rows('footer__important-repeater', 'option')) : the_row();
+
+                // отображаем вложенные поля
+            ?>
+
+                <li class="footer__nav-item">
+                  <svg
+                    width="5.874908"
+                    height="10.000000"
+                    viewBox="0 0 5.87491 10"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <desc>Created with Pixso.</desc>
+                    <defs />
+                    <path
+                      id="Vector"
+                      d="M5.71 4.6L1.26 0.15C1.16 0.05 1.02 0 0.87 0C0.73 0 0.59 0.05 0.49 0.15L0.16 0.48C-0.05 0.7 -0.05 1.04 0.16 1.26L3.9 4.99L0.15 8.73C0.05 8.84 0 8.97 0 9.12C0 9.27 0.05 9.4 0.15 9.51L0.48 9.84C0.59 9.94 0.72 10 0.87 10C1.02 10 1.15 9.94 1.26 9.84L5.71 5.38C5.81 5.28 5.87 5.14 5.87 4.99C5.87 4.85 5.81 4.71 5.71 4.6Z"
+                      fill="#FDFDFD"
+                      fill-opacity="1.000000"
+                      fill-rule="nonzero" />
+                  </svg>
+                  <a href="<?php echo get_sub_field('link')['url'] ?>"><?php echo get_sub_field('link')['title'] ?></a>
+                </li>
+
+            <?php
+              endwhile;
+
+            else :
+
+            // вложенных полей не найдено
+
+            endif;
+
+            ?>
             <li class="footer__nav-item">
               <svg
                 width="5.874908"
@@ -387,8 +380,8 @@
   </section>
   <section class="footer__bottom">
     <div class="container footer__bottom-inner">
-      <p>ИП Константинопольский К.К., 2023</p>
-      <a href="#">Политика обработки персональных данных</a>
+      <p><?php echo get_field('footer__rights-name', 'option') . ' ' . date('Y') ?></p>
+      <a href="<?php echo get_field('footer__politics', 'option')['url'] ?>"><?php echo get_field('footer__politics', 'option')['title'] ?></a>
     </div>
   </section>
 </footer>

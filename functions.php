@@ -111,6 +111,13 @@ function formSelectLocation()
 	require 'shortcodes/form-select-location.php';
 }
 
+add_shortcode('mailing', 'mailing');
+
+function mailing()
+{
+	require 'shortcodes/mailing.php';
+}
+
 add_filter('excerpt_more', function ($more) {
 	return '...';
 });
