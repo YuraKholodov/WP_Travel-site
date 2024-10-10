@@ -138,7 +138,7 @@ get_header();
     <div class="container popular-dest__inner">
       <div class="popular-dest__desc desc">
         <span><?php the_field('popular__subtitle') ?></span>
-        <h2 class="title"><?php the_title() ?></h2>
+        <h2 class="title"><?php the_field('popular__title') ?></h2>
       </div>
       <div class="popular-dest__gallery">
         <!-- Slider main container -->
@@ -162,30 +162,27 @@ get_header();
             // Проверяем, есть ли записи
             if ($query->have_posts()) {
               while ($query->have_posts()) {
-                $query->the_post();
-                if (has_post_thumbnail()) {
-                  $thumbnail_id = get_post_thumbnail_id();
-                  $alt_text = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
-                }
-
-            ?>
+                $query->the_post(); ?>
 
                 <div class="popular-dest__slide swiper-slide">
                   <div class="popular-dest__item">
                     <div class="popular-dest__item-img">
-                      <img
-                        loading="lazy"
-                        src="<?php the_post_thumbnail_url('large') ?>"
-                        alt="<?php echo esc_attr($alt_text) ?>" />
+
+                      <?php the_post_thumbnail('large') ?>
+
                     </div>
                     <div class="popular-dest__item-desc">
                       <div class="popular-desc__item-top">
                         <div>
                           <h3 class="popular-dest__item-desc-title">
+
                             <?php the_title() ?>
+
                           </h3>
                           <p class="popular-dest__item-desc-text">
+
                             <?php the_field('popular-dest__descr') ?>
+                            
                           </p>
                         </div>
                         <div class="popular-dest__item-price"><?php the_field('popular-dest__price') ?> $</div>
@@ -254,18 +251,12 @@ get_header();
             if ($query->have_posts()) {
               while ($query->have_posts()) {
                 $query->the_post();
-                if (has_post_thumbnail()) {
-                  $thumbnail_id = get_post_thumbnail_id();
-                  $alt_text = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
-                }
             ?>
 
                 <div class="blog__slide swiper-slide">
                   <div class="blog__item">
                     <div class="blog__item-img">
-                      <img src="<?php the_post_thumbnail_url('medium') ?>" alt="<?php if (!empty($alt_text)) {
-                                                                                  echo esc_attr($alt_text);
-                                                                                } ?>" />
+                      <?php the_post_thumbnail('medium'); ?>
                     </div>
                     <div class="blog__item-desc">
                       <div class="blog__item-top">

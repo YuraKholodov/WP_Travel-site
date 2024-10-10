@@ -793,6 +793,10 @@ select {
   text-align: center;
 }
 
+.popular-dest__slider {
+  height: 500px;
+}
+
 .popular-dest__slide {
   max-width: 380px;
 }
@@ -801,10 +805,16 @@ select {
   position: relative;
   overflow: hidden;
   border-radius: 32px;
+  height: 100%;
 }
 
-.popular-dest__item-img > img {
+.popular-dest__item-img {
+  height: 100%;
+}
+
+.popular-dest__item-img img {
   width: 100%;
+  height: 100%;
   object-fit: cover;
   object-position: center;
 }

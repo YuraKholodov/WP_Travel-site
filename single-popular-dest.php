@@ -17,17 +17,17 @@ $price = get_post_meta($post_id, 'popular-dest__price', true);
   <div class="container popular-dest__inner">
     <div class="popular-dest__desc desc">
       <h2 class="title"><?php the_title() ?></h2>
-      <p>
-        <?php if (!empty($descr)) {
-          echo esc_html($descr);
-        } ?>
-      </p>
-      <p>
-        <?php if (!empty($price)) {
-          echo esc_html($price) . '$';
-        } ?>
-      </p>
+
+      <?php if ($descr) { ?>
+        <p><?php echo esc_html($descr); ?></p>
+      <?php } ?>
+
+      <?php if ($price) { ?>
+        <p><?php echo esc_html($price) . '$'; ?></p>
+      <?php } ?>
+
       <?php the_content() ?>
+
     </div>
   </div>
 </section>

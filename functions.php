@@ -121,3 +121,13 @@ function mailing()
 add_filter('excerpt_more', function ($more) {
 	return '...';
 });
+
+function add_lazy_loading_to_thumbnail($attr)
+{
+	// Проверяем, поддерживает ли браузер lazy loading
+	if (wp_lazy_loading_enabled('img', 'the_post_thumbnail')) {
+		$attr['loading'] = 'lazy';
+	}
+	return $attr;
+}
+add_filter('wp_get_attachment_image_attributes', 'add_lazy_loading_to_thumbnail');
